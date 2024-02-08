@@ -52,7 +52,7 @@ public class CustomerClass {
     // Method to display information about the customer
     @Override
     public String toString() {
-        return "Customer Information: " +
+        return /*"Customer Information: " +*/
                 "CustomerID=" + customerID +
                 ", Name='" + name + '\'' +
                 ", ShoppingCart=" + shoppingCart;

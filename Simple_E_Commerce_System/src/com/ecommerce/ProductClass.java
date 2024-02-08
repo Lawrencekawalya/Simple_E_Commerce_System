@@ -52,7 +52,7 @@ public class ProductClass {
     // Method to display information about the product
     @Override
     public String toString() {
-        return "Product Information: " +
+        return /*"Product Information: " +*/
                 "ProductID=" + productID +
                 ", Name='" + name + '\'' +
                 ", Price=$" + price;

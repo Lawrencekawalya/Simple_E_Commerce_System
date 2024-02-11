@@ -28,7 +28,7 @@ public class MainProgram {
 	    System.out.println("Enter Customer's Name: ");
 	    String customerName = scanner.nextLine();
 
-	    // Create instance of customer with user input
+	    // Create instance of customer with user inputas
 	    CustomerClass customer = new CustomerClass(customerID, customerName);
 
 	    // Display welcome message

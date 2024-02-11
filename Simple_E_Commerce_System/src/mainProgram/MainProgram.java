@@ -21,7 +21,8 @@ public class MainProgram {
 
 	    // Display welcome message
 	    System.out.println("Dear esteemed customer, " + customerName + ", welcome to our E-commerce System!");
-	    System.out.println("Please take a look at all products we have. Enter the product ID to add it to your order.");
+	    System.out.println("Please take a look at all products we have. "
+	    		+ "Enter the product ID to add it to your order.");
 
 	    // Display all products in the system
 	    displayAllProducts();

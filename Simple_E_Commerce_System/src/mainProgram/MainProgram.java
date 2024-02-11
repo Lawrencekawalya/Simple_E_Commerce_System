@@ -9,10 +9,22 @@ public class MainProgram {
 	public static void main(String[] args) {
 	    Scanner scanner = new Scanner(System.in);
 
-	    // Get user input for customer
-	    System.out.println("Enter Customer's ID: ");
-	    int customerID = scanner.nextInt();
-	    scanner.nextLine(); // Consume the newline character
+	 // Get user input for customer ID
+	    int customerID = 0;
+	    boolean validInput = false;
+
+	    do {
+	        try {
+	            System.out.println("Enter Customer's ID: ");
+	            customerID = scanner.nextInt();
+	            scanner.nextLine(); // Consume the newline character
+	            validInput = true; // Set to true if no exception is thrown
+	        } catch (java.util.InputMismatchException e) {
+	            System.out.println("Invalid input! Please enter a valid integer for Customer's ID.");
+	            scanner.nextLine(); // Consume the invalid input
+	        }
+	    } while (!validInput);
+
 	    System.out.println("Enter Customer's Name: ");
 	    String customerName = scanner.nextLine();
 
@@ -42,37 +54,45 @@ public class MainProgram {
 	        processOrder(customer);
 	    } else {
 	        // Cancel the order
-	        System.out.println("Thank you for coming!");
+	        System.out.println("Thank you for coming! Please come back again");
 	    }
 
 	    // Close the scanner
 	    scanner.close();
 	}
 
+	
 	private static void makeOrder(CustomerClass customer, Scanner scanner) {
 	    int selectedProductID;
 
 	    // Allow the customer to add products to the order
 	    do {
-	        System.out.println("\nEnter the Product ID to add to your shopping cart (enter 0 to finish): ");
-	        selectedProductID = scanner.nextInt();
+	        try {
+	            System.out.println("\nEnter the Product ID to add to your shopping cart (enter 0 to finish): ");
+	            selectedProductID = scanner.nextInt();
 
-	        // Consume the newline character
-	        scanner.nextLine();
+	            // Consume the newline character
+	            scanner.nextLine();
 
-	        // Check if the selected product ID is valid
-	        if (selectedProductID > 0) {
-	            // Add the selected product to the customer's order
-	            ProductClass selectedProduct = getProductById(selectedProductID);
-	            if (selectedProduct != null) {
-	                customer.getShoppingCart().addProduct(selectedProduct);
-	                System.out.println("Product added to your order: " + selectedProduct.toString());
-	            } else {
-	                System.out.println("Invalid Product ID. Please try again.");
+	            // Check if the selected product ID is valid
+	            if (selectedProductID > 0) {
+	                // Add the selected product to the customer's order
+	                ProductClass selectedProduct = getProductById(selectedProductID);
+	                if (selectedProduct != null) {
+	                    customer.getShoppingCart().addProduct(selectedProduct);
+	                    System.out.println("Product added to your order: " + selectedProduct.toString());
+	                } else {
+	                    System.out.println("Invalid Product ID. Please try again.");
+	                }
 	            }
+	        } catch (java.util.InputMismatchException e) {
+	            System.out.println("Invalid input! Please enter a valid integer for Product ID.");
+	            scanner.nextLine(); // Consume the invalid input
+	            selectedProductID = -1; // Set an invalid value to repeat the loop
 	        }
 	    } while (selectedProductID != 0);
 	}
+
 
     private static void displayAllProducts() {
         System.out.println("\nAvailable Products:");

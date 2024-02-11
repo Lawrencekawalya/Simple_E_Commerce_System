@@ -45,10 +45,19 @@ public class ShoppingCart {
     // Method to display information about the shopping cart
     @Override
     public String toString() {
-        StringBuilder sb = new StringBuilder();
-        sb.append("Shopping Cart Information:\n");
-        sb.append("Products: ").append(products).append("\n");
-        sb.append("Total Cost: $").append(calculateTotalCost()).append("\n");
-        return sb.toString();
+        StringBuilder result = new StringBuilder();
+        result.append("Shopping Cart Information:\n");
+        result.append("Products: ");
+
+        for (ProductClass product : products) {
+            result.append("\n").append(product.toString());
+        }
+        
+        result.append("\n------------------------------------------------\nTotal Cost: $")
+        .append(calculateTotalCost()).append("\n------------------------------------------------");
+//        result.append("\nTotal Cost: $").append(calculateTotalCost()).append("]");
+
+        return result.toString();
     }
+
 }

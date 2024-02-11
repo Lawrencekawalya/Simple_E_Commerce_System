@@ -57,4 +57,10 @@ public class ProductClass {
                 ", Name='" + name + '\'' +
                 ", Price=$" + price;
     }
+
+    public String formatForOrderSummary() {
+        return "ID - " + productID + ", " + name + ", $" + price;
+    }
+
+
 }

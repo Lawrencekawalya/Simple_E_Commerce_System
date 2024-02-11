@@ -20,7 +20,7 @@ public class MainProgram {
 	            scanner.nextLine(); // Consume the newline character
 	            validInput = true; // Set to true if no exception is thrown
 	        } catch (java.util.InputMismatchException e) {
-	            System.out.println("Invalid input! Please enter a valid integer for Customer's ID.");
+	            System.out.println("Customer's ID... Must be an integer like this ***123***");
 	            scanner.nextLine(); // Consume the invalid input
 	        }
 	    } while (!validInput);
@@ -28,7 +28,7 @@ public class MainProgram {
 	    System.out.println("Enter Customer's Name: ");
 	    String customerName = scanner.nextLine();
 
-	    // Create instance of customer with user inputas
+	    // Create instance of customer with user input
 	    CustomerClass customer = new CustomerClass(customerID, customerName);
 
 	    // Display welcome message
@@ -45,17 +45,28 @@ public class MainProgram {
 	    // Display information about the customer's order
 	    System.out.println("\nYour Selected items:\n" + customer.getShoppingCart().toString());
 
-	    // Ask the customer if they want to proceed with the order or cancel
-	    System.out.println("Do you want to proceed with the order? (Enter 'Y' for Yes, 'N' for No): ");
-	    String userChoice = scanner.nextLine();
+        // Ask the customer if they want to proceed with the order or cancel
+        String userChoice;
 
-	    if (userChoice.equalsIgnoreCase("Y")) {
-	        // Proceed with the order
-	        processOrder(customer);
-	    } else {
-	        // Cancel the order
-	        System.out.println("Thank you for coming! Please come back again");
-	    }
+        do {
+            System.out.println("Do you want to proceed with the order? (Enter 'Y' for Yes, 'N' for No): ");
+            userChoice = scanner.nextLine();
+
+            if (!userChoice.equalsIgnoreCase("Y") && !userChoice.equalsIgnoreCase("N")) {
+                System.out.println("Invalid choice. Please enter 'Y' for Yes or 'N' for No.");
+            }
+
+        } while (!userChoice.equalsIgnoreCase("Y") && !userChoice.equalsIgnoreCase("N"));
+
+        if (userChoice.equalsIgnoreCase("Y")) {
+            // Proceed with the order
+            processOrder(customer);
+        } else {
+            // Cancel the order
+        	System.out.println("\n\n*************************************************");
+            System.out.println("Thank you for coming! Please come back again🤩❤️");
+            System.out.println("*************************************************");
+        }
 
 	    // Close the scanner
 	    scanner.close();
@@ -82,7 +93,8 @@ public class MainProgram {
 	                    customer.getShoppingCart().addProduct(selectedProduct);
 	                    System.out.println("Product added to your order: " + selectedProduct.toString());
 	                } else {
-	                    System.out.println("Invalid Product ID. Please try again.");
+	                    System.out.println("Invalid Product ID Or Product is Out of stock or Unavailable.");
+	                    System.out.println("Please try again.....");
 	                }
 	            }
 	        } catch (java.util.InputMismatchException e) {
@@ -93,27 +105,46 @@ public class MainProgram {
 	    } while (selectedProductID != 0);
 	}
 
-
     private static void displayAllProducts() {
         System.out.println("\nAvailable Products:");
 
         // Create instances of products
         ProductClass laptop = new ProductClass(1, "Laptop", 899.99);
         ProductClass smartphone = new ProductClass(2, "Smartphone", 499.99);
+        ProductClass tablet = new ProductClass(3, "Tablet", 299.99);
+        ProductClass headphones = new ProductClass(4, "Headphones", 79.99);
+        ProductClass smartwatch = new ProductClass(5, "Smartwatch", 149.99);
+        ProductClass camera = new ProductClass(6, "Camera", 599.99);
+        ProductClass gamingConsole = new ProductClass(7, "Gaming Console", 399.99);
 
         // Display information about products
         System.out.println("Product Information: " + laptop.toString());
         System.out.println("Product Information: " + smartphone.toString());
+        System.out.println("Product Information: " + tablet.toString());
+        System.out.println("Product Information: " + headphones.toString());
+        System.out.println("Product Information: " + smartwatch.toString());
+        System.out.println("Product Information: " + camera.toString());
+        System.out.println("Product Information: " + gamingConsole.toString());  
     }
 
         private static ProductClass getProductById(int productID) {
         // For simplicity, this method returns a product based on a hardcoded list.
-        // In a real application, you might want to fetch product information from a database.
         switch (productID) {
             case 1:
                 return new ProductClass(1, "Laptop", 899.99);
             case 2:
                 return new ProductClass(2, "Smartphone", 499.99);
+            case 3:
+                return new ProductClass(3, "Tablet", 299.99);
+            case 4:
+                return new ProductClass(4, "Headphones", 79.99);
+            case 5:
+                return new ProductClass(5, "Smartwatch", 149.99);
+            case 6:
+                return new ProductClass(6, "Camera", 599.99);
+            case 7:
+                return new ProductClass(7, "Gaming Console", 399.99);
+            	
             default:
                 return null;
         }
@@ -122,15 +153,14 @@ public class MainProgram {
     private static void processOrder(CustomerClass customer) {
         // Create an instance of Order
         int orderID = generateOrderID(); // You can implement this method to generate a unique order ID
-        Order order = new Order(orderID, customer, customer.getShoppingCart().getProducts(), "Processing");
+        Order order = new Order(orderID, customer, customer.getShoppingCart().getProducts(), "Processing...");
 
         // Display the order summary
-        System.out.println("\nOrder Summary:\n" + order.generateOrderSummary());
+        System.out.println("\n\n********Order Summary**********************\n\n" + order.generateOrderSummary());
     }
     
     private static int generateOrderID() {
-        // For simplicity, this method generates a random order ID.
-        // In a real application, you might want to implement a more sophisticated logic.
+        //this method generates a random order ID.
         return (int) (Math.random() * 1000);
     }
     

@@ -4,6 +4,7 @@ import com.ecommerce.CustomerClass;
 import com.ecommerce.ProductClass;
 
 import java.util.List;
+import java.text.DecimalFormat;
 
 public class Order {
     private int orderID;
@@ -11,6 +12,7 @@ public class Order {
     private List<ProductClass> products;
     private double orderTotal;
     private String orderStatus;
+    private int productCounter = 1;
 
     // Constructors
     public Order(int orderID, CustomerClass customer, List<ProductClass> products, String orderStatus) {
@@ -74,14 +76,25 @@ public class Order {
     // Method to generate order summaries
     public String generateOrderSummary() {
         StringBuilder summary = new StringBuilder();
-        summary.append("Order ID: ").append(orderID).append("\n");
-        summary.append("Customer: ").append(customer.getName()).append("\n");
-        summary.append("Products: ").append(products).append("\n");
-        summary.append("Order Total: $").append(orderTotal).append("\n");
+        summary.append("	Order ID: ").append(orderID).append("\n");
+        summary.append("	Customer: ").append(customer.getName()).append("\n\n");
+        summary.append("Products: ").append("\n");
+
+        for (ProductClass product : products) {
+            summary.append("Product: ").append(productCounter++).append(". ")
+                    .append(product.formatForOrderSummary()).append("\n");
+        }
+     // Format orderTotal to three decimal places
+        DecimalFormat decimalFormat = new DecimalFormat("#.###");
+        String formattedOrderTotal = decimalFormat.format(orderTotal);
+        summary.append("--------------------------------------------").append("\n");
+        summary.append("Order Total: $").append(formattedOrderTotal).append("\n");
+        summary.append("--------------------------------------------").append("\n");
         summary.append("Order Status: ").append(orderStatus).append("\n");
+
         return summary.toString();
     }
-
+    
     // Method to update order status
     public void updateOrderStatus(String newStatus) {
         orderStatus = newStatus;
